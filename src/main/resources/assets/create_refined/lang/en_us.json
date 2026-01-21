@@ -1,0 +1,13 @@
+{
+  "itemGroup.create_refined": "Example Mod Tab",
+  "block.create_refined.example_block": "Example Block",
+  "item.create_refined.example_item": "Example Item",
+
+  "create_refined.configuration.title": "Create: Refined Configs",
+  "create_refined.configuration.section.create_refined.common.toml": "Create: Refined Configs",
+  "create_refined.configuration.section.create_refined.common.toml.title": "Create: Refined Configs",
+  "create_refined.configuration.items": "Item List",
+  "create_refined.configuration.logDirtBlock": "Log Dirt Block",
+  "create_refined.configuration.magicNumberIntroduction": "Magic Number Text",
+  "create_refined.configuration.magicNumber": "Magic Number"
+}
