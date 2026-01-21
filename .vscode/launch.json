@@ -1,0 +1,93 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Client",
+      "presentation": {
+        "group": "Mod Development - create-refined",
+        "order": 0
+      },
+      "projectName": "create-refined",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@/home/khaosdoctor/Documents/Repositories/github.com/khaosdoctor/create-refined/build/moddev/clientRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@/home/khaosdoctor/Documents/Repositories/github.com/khaosdoctor/create-refined/build/moddev/clientRunVmArgs.txt",
+        "-Dfml.modFolders\u003dcreate_refined%%/home/khaosdoctor/Documents/Repositories/github.com/khaosdoctor/create-refined/bin/main"
+      ],
+      "cwd": "${workspaceFolder}/run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Data",
+      "presentation": {
+        "group": "Mod Development - create-refined",
+        "order": 1
+      },
+      "projectName": "create-refined",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@/home/khaosdoctor/Documents/Repositories/github.com/khaosdoctor/create-refined/build/moddev/dataRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@/home/khaosdoctor/Documents/Repositories/github.com/khaosdoctor/create-refined/build/moddev/dataRunVmArgs.txt",
+        "-Dfml.modFolders\u003dcreate_refined%%/home/khaosdoctor/Documents/Repositories/github.com/khaosdoctor/create-refined/bin/main"
+      ],
+      "cwd": "${workspaceFolder}/run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "GameTestServer",
+      "presentation": {
+        "group": "Mod Development - create-refined",
+        "order": 2
+      },
+      "projectName": "create-refined",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@/home/khaosdoctor/Documents/Repositories/github.com/khaosdoctor/create-refined/build/moddev/gameTestServerRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@/home/khaosdoctor/Documents/Repositories/github.com/khaosdoctor/create-refined/build/moddev/gameTestServerRunVmArgs.txt",
+        "-Dfml.modFolders\u003dcreate_refined%%/home/khaosdoctor/Documents/Repositories/github.com/khaosdoctor/create-refined/bin/main"
+      ],
+      "cwd": "${workspaceFolder}/run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Server",
+      "presentation": {
+        "group": "Mod Development - create-refined",
+        "order": 3
+      },
+      "projectName": "create-refined",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@/home/khaosdoctor/Documents/Repositories/github.com/khaosdoctor/create-refined/build/moddev/serverRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@/home/khaosdoctor/Documents/Repositories/github.com/khaosdoctor/create-refined/build/moddev/serverRunVmArgs.txt",
+        "-Dfml.modFolders\u003dcreate_refined%%/home/khaosdoctor/Documents/Repositories/github.com/khaosdoctor/create-refined/bin/main"
+      ],
+      "cwd": "${workspaceFolder}/run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    }
+  ]
+}
