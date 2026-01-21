@@ -1,0 +1,6 @@
+{
+  "java.project.outputPath": "build/classes/java",
+  "java.debug.settings.hotCodeReplace": "auto",
+  "java.debug.settings.forceBuildBeforeLaunch": true,
+  "java.configuration.updateBuildConfiguration": "automatic"
+}
