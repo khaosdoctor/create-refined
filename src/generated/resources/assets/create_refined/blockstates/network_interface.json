@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "create_refined:block/network_interface"
+    }
+  }
+}

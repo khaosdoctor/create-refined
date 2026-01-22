@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "create_refined:network_interface"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "create_refined:blocks/network_interface"
+}
