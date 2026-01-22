@@ -25,3 +25,4 @@ run-data
 
 repo
 pkg/
+src/generated/resources/.cache/
