@@ -1,8 +1,6 @@
 package com.khaosdoctor.create_refined;
 
 import org.slf4j.Logger;
-
-import com.google.common.graph.Network;
 import com.khaosdoctor.create_refined.network_interface.*;
 import com.khaosdoctor.create_refined.network_interface.datagen.*;
 import com.mojang.logging.LogUtils;
@@ -24,7 +22,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -87,11 +85,6 @@ public class CreateRefined {
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
-    private void commonSetup(FMLCommonSetupEvent event) {
-        // Some common setup code
-        LOGGER.info("Create: Refined common setup being initialized");
-    }
-
     // Register the data providers: textures, models, blockstates, loot tables,
     // recipes, etc.
     public static void onGatherData(GatherDataEvent event) {
@@ -119,10 +112,14 @@ public class CreateRefined {
         }
     }
 
-    // You can uses SubscribeEvent and let the Event Bus discover methods to call
+    private void commonSetup(FMLCommonSetupEvent event) {
+        // Some common setup code
+        LOGGER.info("[Create: Refined] common setup being initialized");
+
+    }
+
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-        // Do something when the server starts
-        LOGGER.info("Create: Refined server starting");
+    private void onServerStarted(ServerStartedEvent event) {
+        LOGGER.info("[Create: Refined] load complete event received");
     }
 }
