@@ -1,4 +1,4 @@
-package com.khaosdoctor.create_refined.network_interface;
+package com.khaosdoctor.create_refined.network_interface.datagen;
 
 import java.util.List;
 import java.util.Set;
