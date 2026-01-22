@@ -1,28 +1,19 @@
 package com.khaosdoctor.create_refined;
 
-import java.util.List;
-import java.util.Set;
-
 import org.slf4j.Logger;
 
 import com.khaosdoctor.create_refined.network_interface.*;
+import com.khaosdoctor.create_refined.network_interface.datagen.*;
 import com.mojang.logging.LogUtils;
 
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.data.loot.LootTableProvider.SubProviderEntry;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
@@ -30,6 +21,7 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -100,13 +92,27 @@ public class CreateRefined {
     }
 
     public static void onGatherData(GatherDataEvent event) {
-        final var generator = event.getGenerator();
+        final DataGenerator generator = event.getGenerator();
         final var lookupProvider = event.getLookupProvider();
-        final var output = generator.getPackOutput();
+        final PackOutput output = generator.getPackOutput();
+        final ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+
         if (event.includeServer()) {
             generator.addProvider(
                     event.includeServer(),
                     new NetworkInterfaceLootTableProvider(output, lookupProvider));
+        }
+
+        if (event.includeClient()) {
+            generator.addProvider(
+                    event.includeClient(),
+                    new NetworkInterfaceBlockModelProvider(output, existingFileHelper));
+            generator.addProvider(
+                    event.includeClient(),
+                    new NetworkInterfaceItemModelProvider(output, existingFileHelper));
+            generator.addProvider(
+                    event.includeClient(),
+                    new NetworkInterfaceBlockStateProvider(output, existingFileHelper));
         }
     }
 
