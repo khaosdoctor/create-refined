@@ -1,7 +1,7 @@
 {
   "itemGroup.create_refined": "Create: Refined",
-  "block.create_refined.example_block": "Example Block",
-  "item.create_refined.example_item": "Example Item",
+  "block.create_refined.network_interface": "Network Interface",
+  "item.create_refined.network_interface": "Network Interface",
 
   "create_refined.configuration.title": "Create: Refined Configs",
   "create_refined.configuration.section.create_refined.common.toml": "Create: Refined Configs",

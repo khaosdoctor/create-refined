@@ -79,7 +79,7 @@ This mod provides several blocks to integrate Create into Refined Storage
     # Side this dependency is applied on - BOTH, CLIENT, or SERVER
     side="BOTH"
 
-# Here's another dependency
+# Mandatory Minecraft dependency
 [[dependencies.${mod_id}]]
     modId="minecraft"
     type="required"
@@ -88,6 +88,7 @@ This mod provides several blocks to integrate Create into Refined Storage
     ordering="NONE"
     side="BOTH"
 
+# This mod requires Create and Refined Storage to be present
 [[dependencies.${mod_id}]]
     modId="create"
     type="required"
@@ -101,9 +102,3 @@ This mod provides several blocks to integrate Create into Refined Storage
     versionRange="[${refinedstorage_version},)"
     ordering="NONE"
     side="BOTH"
-
-# Features are specific properties of the game environment, that you may want to declare you require. This example declares
-# that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
-# stop your mod loading on the server for example.
-#[features.${mod_id}]
-#openGLVersion="[3.2,)"
