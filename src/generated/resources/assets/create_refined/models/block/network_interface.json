@@ -1,6 +1,12 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube",
   "textures": {
-    "all": "create_refined:block/network_interface"
+    "down": "create_refined:block/network_interface_up",
+    "east": "create_refined:block/network_interface_east",
+    "north": "create_refined:block/network_interface_north",
+    "particle": "create_refined:block/network_interface_south",
+    "south": "create_refined:block/network_interface_south",
+    "up": "create_refined:block/network_interface_down",
+    "west": "create_refined:block/network_interface_west"
   }
 }

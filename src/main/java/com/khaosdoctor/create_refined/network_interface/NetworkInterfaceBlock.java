@@ -5,6 +5,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.*;
 
 public class NetworkInterfaceBlock extends Block {
+  public static final String BLOCK_NAME = "network_interface";
+
   public NetworkInterfaceBlock() {
     super(Properties.of()
         .destroyTime(Blocks.DIRT.defaultDestroyTime())

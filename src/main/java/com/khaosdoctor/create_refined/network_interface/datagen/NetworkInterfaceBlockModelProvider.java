@@ -1,6 +1,7 @@
 package com.khaosdoctor.create_refined.network_interface.datagen;
 
 import com.khaosdoctor.create_refined.CreateRefined;
+import com.khaosdoctor.create_refined.network_interface.NetworkInterfaceBlock;
 
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.client.model.generators.BlockModelProvider;
@@ -16,8 +17,13 @@ public class NetworkInterfaceBlockModelProvider extends BlockModelProvider {
 
   @Override
   protected void registerModels() {
-    cubeAll(
-        "network_interface",
-        mcLoc("block/iron_block"));
+    cube(
+        NetworkInterfaceBlock.BLOCK_NAME,
+        modLoc("block/network_interface_up"),
+        modLoc("block/network_interface_down"),
+        modLoc("block/network_interface_north"),
+        modLoc("block/network_interface_south"),
+        modLoc("block/network_interface_east"),
+        modLoc("block/network_interface_west")).texture("particle", modLoc("block/network_interface_south"));
   }
 }

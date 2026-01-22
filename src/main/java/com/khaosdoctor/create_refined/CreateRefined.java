@@ -2,6 +2,7 @@ package com.khaosdoctor.create_refined;
 
 import org.slf4j.Logger;
 
+import com.google.common.graph.Network;
 import com.khaosdoctor.create_refined.network_interface.*;
 import com.khaosdoctor.create_refined.network_interface.datagen.*;
 import com.mojang.logging.LogUtils;
@@ -45,12 +46,12 @@ public class CreateRefined {
 
     // Creates a new Block with the id "create_refined:network_interface", combining
     // the namespace and path
-    public static final DeferredBlock<Block> NETWORK_INTERFACE = BLOCKS.registerBlock("network_interface",
-            properties -> new NetworkInterfaceBlock());
+    public static final DeferredBlock<Block> NETWORK_INTERFACE = BLOCKS.registerBlock(NetworkInterfaceBlock.BLOCK_NAME,
+                    properties -> new NetworkInterfaceBlock());
     // Creates a new BlockItem with the id "create_refined:network_interface",
     // combining the namespace and path
     public static final DeferredItem<BlockItem> NETWORK_INTERFACE_ITEM = ITEMS
-            .registerSimpleBlockItem("network_interface", NETWORK_INTERFACE);
+                    .registerSimpleBlockItem(NetworkInterfaceBlock.BLOCK_NAME, NETWORK_INTERFACE);
 
     // Creates a creative tab with the id "create_refined:blocks" for the example
     // item, that is placed after the combat tab
@@ -91,6 +92,8 @@ public class CreateRefined {
         LOGGER.info("Create: Refined common setup being initialized");
     }
 
+    // Register the data providers: textures, models, blockstates, loot tables,
+    // recipes, etc.
     public static void onGatherData(GatherDataEvent event) {
         final DataGenerator generator = event.getGenerator();
         final var lookupProvider = event.getLookupProvider();
@@ -99,20 +102,20 @@ public class CreateRefined {
 
         if (event.includeServer()) {
             generator.addProvider(
-                    event.includeServer(),
-                    new NetworkInterfaceLootTableProvider(output, lookupProvider));
+                            true,
+                            new NetworkInterfaceLootTableProvider(output, lookupProvider));
         }
 
         if (event.includeClient()) {
             generator.addProvider(
-                    event.includeClient(),
-                    new NetworkInterfaceBlockModelProvider(output, existingFileHelper));
+                            true,
+                            new NetworkInterfaceBlockModelProvider(output, existingFileHelper));
             generator.addProvider(
-                    event.includeClient(),
-                    new NetworkInterfaceItemModelProvider(output, existingFileHelper));
+                            true,
+                            new NetworkInterfaceItemModelProvider(output, existingFileHelper));
             generator.addProvider(
-                    event.includeClient(),
-                    new NetworkInterfaceBlockStateProvider(output, existingFileHelper));
+                            true,
+                            new NetworkInterfaceBlockStateProvider(output, existingFileHelper));
         }
     }
 
