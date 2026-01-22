@@ -1,13 +1,17 @@
 package com.khaosdoctor.create_refined.network_interface;
 
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
+
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 
-public class NetworkInterfaceBlock extends Block {
+public class NetworkInterfaceBlock extends Block implements IWrenchable {
   public static final String BLOCK_NAME = "network_interface";
   public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
@@ -42,5 +46,12 @@ public class NetworkInterfaceBlock extends Block {
   @Override
   public BlockState mirror(BlockState state, Mirror mirror) {
     return this.rotate(state, mirror.getRotation(state.getValue(FACING)));
+  }
+
+  @Override
+  public InteractionResult onWrenched(BlockState state, UseOnContext context) {
+    // Ignore wrench interaction since the block cannot be rotated, but keep
+    // the behavior of crouch + wrench to pick block
+    return InteractionResult.PASS;
   }
 }
