@@ -1,12 +1,8 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "refinedstorage:block/controller/light_blue",
   "textures": {
-    "down": "create_refined:block/network_interface_up",
-    "east": "create_refined:block/network_interface_east",
-    "north": "create_refined:block/network_interface_north",
-    "particle": "create_refined:block/network_interface_south",
-    "south": "create_refined:block/network_interface_south",
-    "up": "create_refined:block/network_interface_down",
-    "west": "create_refined:block/network_interface_west"
+    "all": "create:block/vault/vault_front_small",
+    "cutout": "refinedstorage:block/controller/cutouts/orange",
+    "particle": "create:block/vault/vault_top_small"
   }
 }

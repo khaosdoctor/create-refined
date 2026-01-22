@@ -3,7 +3,9 @@ package com.khaosdoctor.create_refined.network_interface.datagen;
 import com.khaosdoctor.create_refined.CreateRefined;
 
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.generators.BlockModelProvider;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public class NetworkInterfaceBlockModelProvider extends BlockModelProvider {
@@ -17,14 +19,14 @@ public class NetworkInterfaceBlockModelProvider extends BlockModelProvider {
   @Override
   protected void registerModels() {
     final String blockName = CreateRefined.NETWORK_INTERFACE.getId().getPath();
-    cube(
-        CreateRefined.NETWORK_INTERFACE.getId().getPath(),
-        modLoc(String.format("block/%s_up", blockName)),
-        modLoc(String.format("block/%s_down", blockName)),
-        modLoc(String.format("block/%s_north", blockName)),
-        modLoc(String.format("block/%s_south", blockName)),
-        modLoc(String.format("block/%s_east", blockName)),
-        modLoc(String.format("block/%s_west", blockName)))
-        .texture("particle", modLoc(String.format("block/%s_south", blockName)));
+    getBuilder(blockName).parent(new ModelFile.UncheckedModelFile(
+        ResourceLocation.fromNamespaceAndPath("refinedstorage", "block/controller/light_blue")))
+        .texture("all",
+            ResourceLocation.fromNamespaceAndPath("create", "block/vault/vault_front_small"))
+        .texture("cutout",
+            ResourceLocation.fromNamespaceAndPath("refinedstorage", "block/controller/cutouts/orange"))
+        .texture("particle",
+            ResourceLocation.fromNamespaceAndPath("create", "block/vault/vault_top_small"));
+
   }
 }
