@@ -22,11 +22,10 @@ public class NetworkInterfaceBlockModelProvider extends BlockModelProvider {
     getBuilder(blockName).parent(new ModelFile.UncheckedModelFile(
         ResourceLocation.fromNamespaceAndPath("refinedstorage", "block/controller/light_blue")))
         .texture("all",
-            ResourceLocation.fromNamespaceAndPath("create", "block/vault/vault_front_small"))
+            ResourceLocation.fromNamespaceAndPath("create", "block/brass_casing"))
         .texture("cutout",
-            ResourceLocation.fromNamespaceAndPath("refinedstorage", "block/controller/cutouts/orange"))
+            ResourceLocation.fromNamespaceAndPath("refinedstorage", "block/controller/cutouts/off"))
         .texture("particle",
-            ResourceLocation.fromNamespaceAndPath("create", "block/vault/vault_top_small"));
-
+            ResourceLocation.fromNamespaceAndPath("create", "block/brass_casing"));
   }
 }
