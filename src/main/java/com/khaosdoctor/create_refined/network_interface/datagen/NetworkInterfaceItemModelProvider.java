@@ -16,7 +16,7 @@ public class NetworkInterfaceItemModelProvider extends ItemModelProvider {
   protected void registerModels() {
     final String blockName = CreateRefined.NETWORK_INTERFACE.getId().getPath();
     withExistingParent(CreateRefined.NETWORK_INTERFACE_ITEM.getId().getPath(),
-        modLoc(String.format("block/%s", blockName)));
+        modLoc(String.format("block/%s_on", blockName)));
   }
 
 }

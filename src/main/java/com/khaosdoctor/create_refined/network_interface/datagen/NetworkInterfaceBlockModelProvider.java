@@ -19,12 +19,21 @@ public class NetworkInterfaceBlockModelProvider extends BlockModelProvider {
   @Override
   protected void registerModels() {
     final String blockName = CreateRefined.NETWORK_INTERFACE.getId().getPath();
-    getBuilder(blockName).parent(new ModelFile.UncheckedModelFile(
+    getBuilder(String.format("%s_off", blockName)).parent(new ModelFile.UncheckedModelFile(
         ResourceLocation.fromNamespaceAndPath("refinedstorage", "block/controller/light_blue")))
         .texture("all",
             ResourceLocation.fromNamespaceAndPath("create", "block/brass_casing"))
         .texture("cutout",
             ResourceLocation.fromNamespaceAndPath("refinedstorage", "block/controller/cutouts/off"))
+        .texture("particle",
+            ResourceLocation.fromNamespaceAndPath("create", "block/brass_casing"));
+
+    getBuilder(String.format("%s_on", blockName)).parent(new ModelFile.UncheckedModelFile(
+        ResourceLocation.fromNamespaceAndPath("refinedstorage", "block/controller/light_blue")))
+        .texture("all",
+            ResourceLocation.fromNamespaceAndPath("create", "block/brass_casing"))
+        .texture("cutout",
+            ResourceLocation.fromNamespaceAndPath("refinedstorage", "block/controller/cutouts/orange"))
         .texture("particle",
             ResourceLocation.fromNamespaceAndPath("create", "block/brass_casing"));
   }
