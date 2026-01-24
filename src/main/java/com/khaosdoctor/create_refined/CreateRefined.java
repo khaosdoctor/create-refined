@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import com.khaosdoctor.create_refined.network_interface.*;
 import com.khaosdoctor.create_refined.network_interface.datagen.*;
 import com.mojang.logging.LogUtils;
+import com.refinedmods.refinedstorage.neoforge.api.RefinedStorageNeoForgeApi;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
@@ -13,12 +14,14 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -39,6 +42,9 @@ public class CreateRefined {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
     // Create a Deferred Register to hold Items which will all be registered under the "create_refined" namespace
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
+    // Create a deferred register to hold all the block entities
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister
+            .create(Registries.BLOCK_ENTITY_TYPE, MODID);
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "create_refined" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
@@ -46,10 +52,19 @@ public class CreateRefined {
     // the namespace and path
     public static final DeferredBlock<Block> NETWORK_INTERFACE = BLOCKS.registerBlock(NetworkInterfaceBlock.BLOCK_NAME,
                     properties -> new NetworkInterfaceBlock());
+
     // Creates a new BlockItem with the id "create_refined:network_interface",
     // combining the namespace and path
     public static final DeferredItem<BlockItem> NETWORK_INTERFACE_ITEM = ITEMS
                     .registerSimpleBlockItem(NetworkInterfaceBlock.BLOCK_NAME, NETWORK_INTERFACE);
+
+    // Creates the block entity type for the Network Interface Block Entity
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<NetworkInterfaceBlockEntity>> NETWORK_INTERFACE_BLOCK_ENTITY = BLOCK_ENTITIES
+            .register(NETWORK_INTERFACE.getId().getPath(),
+                    () -> BlockEntityType.Builder
+                            .of(NetworkInterfaceBlockEntity::new,
+                                    NETWORK_INTERFACE.get())
+                            .build(null));
 
     // Creates a creative tab with the id "create_refined:blocks" for the example
     // item, that is placed after the combat tab
@@ -68,6 +83,7 @@ public class CreateRefined {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(CreateRefined::onGatherData);
+        modEventBus.addListener(CreateRefined::onRegisterCapabilities);
 
         // Register the Deferred Register to the mod event bus so blocks get registered
         BLOCKS.register(modEventBus);
@@ -75,6 +91,9 @@ public class CreateRefined {
         ITEMS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
+        // Register the Deferred Register to the mod event bus so block entities get
+        // registered
+        BLOCK_ENTITIES.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (CreateRefined) to respond directly to events.
@@ -110,6 +129,45 @@ public class CreateRefined {
                             true,
                             new NetworkInterfaceBlockStateProvider(output, existingFileHelper));
         }
+    }
+
+    /**
+     * Registers capabilities for our mod.
+     *
+     * What are capabilities?
+     * - In NeoForge, capabilities are how mods expose functionality to each other
+     * - Think of it like an API: "I can do X, ask me for capability X"
+     * - Other mods can query: "Does this block have capability X?"
+     *
+     * Why do we need this for RS integration?
+     * - RS needs to find network nodes in the world
+     * - It does this by asking blocks: "Do you have a NetworkNodeContainerProvider capability?"
+     * - Without registering this capability, RS won't know our block can be a network node
+     * - Even though we extend AbstractBaseNetworkNodeContainerBlockEntity, we still need to
+     *   register the capability so RS can find us!
+     *
+     * What happens here:
+     * 1. RS asks our block: "Do you have a NetworkNodeContainerProvider?"
+     * 2. NeoForge checks this registry
+     * 3. Finds we registered it, calls: blockEntity.getContainerProvider()
+     * 4. RS gets our container and adds us to the network
+     *
+     * CRITICAL: Without this registration, cables won't connect even if everything else is correct!
+     */
+    private static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
+        LOGGER.info("[Create: Refined] Registering capabilities");
+
+        // Register the NetworkNodeContainerProvider capability for our block entity
+        // This tells RS: "When you ask our block for a network node container, call getContainerProvider()"
+        event.registerBlockEntity(
+            // What capability are we providing? The RS network node container capability
+            RefinedStorageNeoForgeApi.INSTANCE.getNetworkNodeContainerProviderCapability(),
+            // Which block entity type provides this capability? Our Network Interface block entity
+            NETWORK_INTERFACE_BLOCK_ENTITY.get(),
+            // How do we get the capability? Call getContainerProvider() on the block entity
+            // (side) parameter is which side is being queried (north, south, etc.) - we ignore it
+            (blockEntity, side) -> blockEntity.getContainerProvider()
+        );
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
