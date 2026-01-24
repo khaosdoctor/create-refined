@@ -18,17 +18,47 @@ import net.neoforged.neoforge.items.IItemHandler;
 
 public class NetworkItemHandler implements IItemHandler {
   private final NetworkInterfaceNetworkNode node;
-  private final int slotCount;
   private static final Actor ACTOR = () -> CreateRefined.NETWORK_INTERFACE.getId().toString();
 
-  public NetworkItemHandler(NetworkInterfaceNetworkNode node, int slotCount) {
+  // Used for caching slot count to improve performance
+  private int cachedSlotCount = 0;
+  private long lastCacheTime = 0;
+
+  public NetworkItemHandler(NetworkInterfaceNetworkNode node) {
     this.node = node;
-    this.slotCount = slotCount;
   }
 
+  /**
+   * Gets the current slots in the network dynamically based on the stored items.
+   *
+   * This method can be called frequently, so we cache the result for a short time
+   * to improve performance.
+   */
   @Override
   public int getSlots() {
-    return slotCount;
+    long currentTime = System.currentTimeMillis();
+    // If cache is recent (within 1 second), return cached value
+    if (currentTime - lastCacheTime >= 1000) {
+      // Update cache time
+      lastCacheTime = currentTime;
+      // Recalculate slot count
+      cachedSlotCount = calculateSlots() + 1;
+    }
+
+    return cachedSlotCount;
+  }
+
+  private int calculateSlots() {
+    StorageNetworkComponent storage = getStorage();
+
+    // If no storage, zero slots
+    if (storage == null) {
+      return 0;
+    }
+
+    // Count distinct item resources in storage and return that as slot count
+    Collection<ResourceAmount> resources = storage.getAll();
+    return (int) resources.stream().filter(res -> res.resource() instanceof ItemResource).count();
   }
 
   @Override
@@ -63,7 +93,7 @@ public class NetworkItemHandler implements IItemHandler {
   public ItemStack getStackInSlot(int slot) {
     // Get the storage
     StorageNetworkComponent storage = getStorage();
-    if (storage == null || slot < 0 || slot >= slotCount) {
+    if (storage == null || slot < 0) {
       return ItemStack.EMPTY;
     }
 
@@ -125,7 +155,7 @@ public class NetworkItemHandler implements IItemHandler {
   @Override
   public ItemStack extractItem(int slot, int amount, boolean simulate) {
     StorageNetworkComponent storage = getStorage();
-    if (storage == null || slot < 0 || slot >= slotCount || amount <= 0) {
+    if (storage == null || slot < 0 || amount <= 0) {
       return ItemStack.EMPTY;
     }
 

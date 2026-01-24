@@ -59,7 +59,7 @@ public class NetworkInterfaceBlockEntity
   public IItemHandler getItemHandler() {
     if (itemHandler == null) {
       // Create the item handler
-      itemHandler = new NetworkItemHandler(mainNetworkNode, 27); // 27 slots like a chest
+      itemHandler = new NetworkItemHandler(mainNetworkNode);
     }
     return itemHandler;
   }
