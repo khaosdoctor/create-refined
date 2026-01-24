@@ -21,6 +21,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -59,6 +60,7 @@ public class CreateRefined {
                     .registerSimpleBlockItem(NetworkInterfaceBlock.BLOCK_NAME, NETWORK_INTERFACE);
 
     // Creates the block entity type for the Network Interface Block Entity
+    @SuppressWarnings("null")
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<NetworkInterfaceBlockEntity>> NETWORK_INTERFACE_BLOCK_ENTITY = BLOCK_ENTITIES
             .register(NETWORK_INTERFACE.getId().getPath(),
                     () -> BlockEntityType.Builder
@@ -168,6 +170,9 @@ public class CreateRefined {
             // (side) parameter is which side is being queried (north, south, etc.) - we ignore it
             (blockEntity, side) -> blockEntity.getContainerProvider()
         );
+
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, NETWORK_INTERFACE_BLOCK_ENTITY.get(),
+                (blockEntity, side) -> blockEntity.getItemHandler());
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {

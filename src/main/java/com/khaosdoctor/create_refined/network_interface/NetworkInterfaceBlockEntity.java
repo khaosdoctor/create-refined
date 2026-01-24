@@ -2,6 +2,7 @@ package com.khaosdoctor.create_refined.network_interface;
 
 import com.khaosdoctor.create_refined.CreateRefined;
 import com.khaosdoctor.create_refined.network_interface.rs_integration.NetworkInterfaceNetworkNode;
+import com.khaosdoctor.create_refined.network_interface.rs_integration.NetworkItemHandler;
 import com.refinedmods.refinedstorage.common.api.RefinedStorageApi;
 import com.refinedmods.refinedstorage.common.api.support.network.InWorldNetworkNodeContainer;
 import com.refinedmods.refinedstorage.common.support.network.AbstractBaseNetworkNodeContainerBlockEntity;
@@ -11,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.IItemHandler;
 
 /**
  * BlockEntity for the Network Interface block.
@@ -32,6 +34,9 @@ import net.minecraft.world.level.block.state.BlockState;
 public class NetworkInterfaceBlockEntity
     extends AbstractBaseNetworkNodeContainerBlockEntity<NetworkInterfaceNetworkNode> {
 
+  // Adds the item handler for RS integration so we can store items in the network
+  private NetworkItemHandler itemHandler;
+
   /**
    * Constructor - called when the block is placed in the world.
    *
@@ -49,6 +54,14 @@ public class NetworkInterfaceBlockEntity
         pos,
         state,
         new NetworkInterfaceNetworkNode());
+  }
+
+  public IItemHandler getItemHandler() {
+    if (itemHandler == null) {
+      // Create the item handler
+      itemHandler = new NetworkItemHandler(mainNetworkNode, 27); // 27 slots like a chest
+    }
+    return itemHandler;
   }
 
   /**
