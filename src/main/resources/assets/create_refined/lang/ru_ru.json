@@ -1,0 +1,8 @@
+{
+  "itemGroup.create_refined": "Create: Refined",
+  "block.create_refined.network_interface": "Сетевой интерфейс",
+  "item.create_refined.network_interface": "Сетевой интерфейс",
+
+  "create_refined.configuration.networkInterfaceEnergy": "Энергия сетевого интерфейса",
+  "create_refined.configuration.networkInterfaceEnergy.tooltip": "Потребление энергии (FE/t) для блока Сетевой интерфейс. Этот блок соединяет системы Create и Refined Storage. Сравнение: Кабель=0, Импортёр=1, Детектор=2, Конструктор=3, Сетка шаблонов=5. По умолчанию: 2 (уровень мониторинга)."
+}

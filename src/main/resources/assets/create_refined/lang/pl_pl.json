@@ -1,0 +1,8 @@
+{
+  "itemGroup.create_refined": "Create: Refined",
+  "block.create_refined.network_interface": "Interfejs Sieciowy",
+  "item.create_refined.network_interface": "Interfejs Sieciowy",
+
+  "create_refined.configuration.networkInterfaceEnergy": "Energia Interfejsu Sieciowego",
+  "create_refined.configuration.networkInterfaceEnergy.tooltip": "Zużycie energii (FE/t) dla bloku Interfejs Sieciowy. Ten blok łączy systemy Create i Refined Storage. Porównanie: Kabel=0, Importer=1, Detektor=2, Konstruktor=3, Siatka Wzorów=5. Domyślnie: 2 (poziom monitorowania)."
+}

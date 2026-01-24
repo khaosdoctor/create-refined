@@ -1,0 +1,8 @@
+{
+  "itemGroup.create_refined": "Create: Refined",
+  "block.create_refined.network_interface": "Nätverksgränssnitt",
+  "item.create_refined.network_interface": "Nätverksgränssnitt",
+
+  "create_refined.configuration.networkInterfaceEnergy": "Nätverksgränssnitt Energi",
+  "create_refined.configuration.networkInterfaceEnergy.tooltip": "Energiförbrukning (FE/t) för Nätverksgränssnitt-blocket. Detta block förbinder Create och Refined Storage systemen. Jämförelse: Kabel=0, Importör=1, Detektor=2, Konstruktör=3, Mönsterrutnät=5. Standard: 2 (övervakningsnivå)."
+}

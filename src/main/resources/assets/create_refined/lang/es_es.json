@@ -1,0 +1,8 @@
+{
+  "itemGroup.create_refined": "Create: Refined",
+  "block.create_refined.network_interface": "Interfaz de Red",
+  "item.create_refined.network_interface": "Interfaz de Red",
+
+  "create_refined.configuration.networkInterfaceEnergy": "Energía de Interfaz de Red",
+  "create_refined.configuration.networkInterfaceEnergy.tooltip": "Consumo de energía (FE/t) para el bloque Interfaz de Red. Este bloque conecta los sistemas Create y Refined Storage. Comparación: Cable=0, Importador=1, Detector=2, Constructor=3, Cuadrícula de Patrones=5. Predeterminado: 2 (nivel de monitoreo)."
+}
