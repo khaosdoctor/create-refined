@@ -14,7 +14,7 @@
 
 # Others
 
-- [ ] This mod shouldn't be only for Create since it just exposes RS capabilities. Consider renaming it to something more generic. Maybe "Refined Barrels" or "Refined Integrations".
+- [x] This mod shouldn't be only for Create since it just exposes RS capabilities. Consider renaming it to something more generic. Maybe "Refined Barrels" or "Refined Integrations".
 - [x] Change the name of the block from "Network Interface" to something more descriptive, "Storage Adapter" or "External Network Storage"
 - [ ] Add docs
 - [ ] Change the texture of the block to something better
