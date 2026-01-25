@@ -1,7 +1,7 @@
 package com.khaosdoctor.create_refined.network_interface;
 
 import com.khaosdoctor.create_refined.CreateRefined;
-import com.khaosdoctor.create_refined.network_interface.rs_integration.NetworkInterfaceNetworkNode;
+import com.khaosdoctor.create_refined.network_interface.rs_integration.ExternalStorageInterfaceNetworkNode;
 import com.khaosdoctor.create_refined.network_interface.rs_integration.NetworkItemHandler;
 import com.refinedmods.refinedstorage.common.api.RefinedStorageApi;
 import com.refinedmods.refinedstorage.common.api.support.network.InWorldNetworkNodeContainer;
@@ -15,24 +15,27 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.IItemHandler;
 
 /**
- * BlockEntity for the Network Interface block.
+ * BlockEntity for the External Storage Interface block.
  *
- * This is the "brain" behind the Network Interface block. In Minecraft modding:
+ * This is the "brain" behind the External Storage Interface block. In Minecraft modding:
  * - A Block is just the visual/physical thing you place in the world
  * - A BlockEntity is the data and logic attached to that block
  *
- * We extend AbstractBaseNetworkNodeContainerBlockEntity which is a base class from
- * Refined Storage that gives us automatic network integration. This base class handles:
+ * We extend AbstractBaseNetworkNodeContainerBlockEntity which is a base class
+ * from
+ * Refined Storage that gives us automatic network integration. This base class
+ * handles:
  * - Connecting to nearby RS cables/blocks
  * - Joining and leaving the RS network automatically
  * - Tracking whether we're active (powered) or not
  * - Energy management
  *
- * The <NetworkInterfaceNetworkNode> part means this BlockEntity contains/manages
- * a NetworkInterfaceNetworkNode (our representation in the RS network graph).
+ * The <ExternalStorageInterfaceNetworkNode> part means this BlockEntity
+ * contains/manages
+ * an ExternalStorageInterfaceNetworkNode (our representation in the RS network graph).
  */
-public class NetworkInterfaceBlockEntity
-    extends AbstractBaseNetworkNodeContainerBlockEntity<NetworkInterfaceNetworkNode> {
+public class ExternalStorageInterfaceBlockEntity
+    extends AbstractBaseNetworkNodeContainerBlockEntity<ExternalStorageInterfaceNetworkNode> {
 
   // Adds the item handler for RS integration so we can store items in the network
   private NetworkItemHandler itemHandler;
@@ -40,20 +43,20 @@ public class NetworkInterfaceBlockEntity
   /**
    * Constructor - called when the block is placed in the world.
    *
-   * @param pos The position in the world where this block is located
+   * @param pos   The position in the world where this block is located
    * @param state The block state (includes properties like FACING and POWERED)
    */
-  public NetworkInterfaceBlockEntity(BlockPos pos, BlockState state) {
+  public ExternalStorageInterfaceBlockEntity(BlockPos pos, BlockState state) {
     // Call the parent class constructor with:
     // 1. Our block entity type (so Minecraft knows what type this is)
     // 2. The position in the world
     // 3. The block state
-    // 4. A new NetworkInterfaceNetworkNode (our node in the RS network graph)
+    // 4. A new ExternalStorageInterfaceNetworkNode (our node in the RS network graph)
     super(
         CreateRefined.NETWORK_INTERFACE_BLOCK_ENTITY.get(),
         pos,
         state,
-        new NetworkInterfaceNetworkNode());
+        new ExternalStorageInterfaceNetworkNode());
   }
 
   public IItemHandler getItemHandler() {
@@ -115,12 +118,15 @@ public class NetworkInterfaceBlockEntity
    * @return The configured container that manages our network presence
    */
   @Override
-  protected InWorldNetworkNodeContainer createMainContainer(NetworkInterfaceNetworkNode node) {
+  protected InWorldNetworkNodeContainer createMainContainer(ExternalStorageInterfaceNetworkNode node) {
     // Build a container using the RS API
     InWorldNetworkNodeContainer container = RefinedStorageApi.INSTANCE.createNetworkNodeContainer(this, node)
-        .name("main") // Name of this container (you can have multiple containers per BlockEntity, we only have one)
-        // SimpleConnectionStrategy means we can connect from ALL 6 sides (north, south, east, west, up, down)
-        // Alternative: ColoredConnectionStrategy excludes the facing direction (useful if you want one side free)
+        .name("main") // Name of this container (you can have multiple containers per BlockEntity, we
+                      // only have one)
+        // SimpleConnectionStrategy means we can connect from ALL 6 sides (north, south,
+        // east, west, up, down)
+        // Alternative: ColoredConnectionStrategy excludes the facing direction (useful
+        // if you want one side free)
         .connectionStrategy(new SimpleConnectionStrategy(getBlockPos()))
         .build();
     return container;
@@ -148,16 +154,18 @@ public class NetworkInterfaceBlockEntity
 
     // Only update block state on the server side
     // In Minecraft, there's a client (what you see) and server (what's real)
-    // We only want to change the "real" state on the server, then it syncs to client
+    // We only want to change the "real" state on the server, then it syncs to
+    // client
     if (level != null && !level.isClientSide()) {
-      // Get the current block state (this includes properties like FACING and POWERED)
+      // Get the current block state (this includes properties like FACING and
+      // POWERED)
       BlockState currentState = getBlockState();
 
       // Only update if the POWERED property is different from our new active state
       // (avoid unnecessary updates)
-      if (currentState.getValue(NetworkInterfaceBlock.POWERED) != newActive) {
+      if (currentState.getValue(ExternalStorageInterfaceBlock.POWERED) != newActive) {
         // Create a new state with POWERED set to match our network active state
-        BlockState newState = currentState.setValue(NetworkInterfaceBlock.POWERED, newActive);
+        BlockState newState = currentState.setValue(ExternalStorageInterfaceBlock.POWERED, newActive);
         // Update the block in the world
         // Block.UPDATE_ALL means: update clients, update neighbors, etc.
         level.setBlock(getBlockPos(), newState, Block.UPDATE_ALL);
@@ -168,19 +176,23 @@ public class NetworkInterfaceBlockEntity
   /**
    * Called every game tick (20 times per second) to do work.
    *
-   * This is the "ticker" - it runs continuously while the block exists in the world.
-   * In our NetworkInterfaceBlock.java, we set up getTicker() to call this method.
+   * This is the "ticker" - it runs continuously while the block exists in the
+   * world.
+   * In our ExternalStorageInterfaceBlock.java, we set up getTicker() to call this method.
    *
    * What happens each tick:
-   * 1. super.doWork() - runs the parent's network processing (handles RS network tasks)
-   * 2. updateActiveness() - checks if our active state changed and triggers activenessChanged() if it did
+   * 1. super.doWork() - runs the parent's network processing (handles RS network
+   * tasks)
+   * 2. updateActiveness() - checks if our active state changed and triggers
+   * activenessChanged() if it did
    *
    * Why we need updateActiveness():
    * - activenessChanged() only fires when the state CHANGES
    * - But we need something to CHECK if it changed
    * - updateActiveness() does that check every tick
    *
-   * Flow: doWork() → updateActiveness() → (if changed) → activenessChanged() → update POWERED property
+   * Flow: doWork() → updateActiveness() → (if changed) → activenessChanged() →
+   * update POWERED property
    */
   @Override
   public void doWork() {
@@ -192,7 +204,7 @@ public class NetworkInterfaceBlockEntity
     if (level != null && !level.isClientSide()) {
       // Check if our active state should change based on network status
       // If it changed, this will call activenessChanged() automatically
-      updateActiveness(getBlockState(), NetworkInterfaceBlock.POWERED);
+      updateActiveness(getBlockState(), ExternalStorageInterfaceBlock.POWERED);
     }
   }
 
@@ -205,14 +217,15 @@ public class NetworkInterfaceBlockEntity
    * - Chat messages
    *
    * Component.translatable means it supports different languages.
-   * It looks up the translation in your language files (resources/assets/create_refined/lang/en_us.json)
+   * It looks up the translation in your language files
+   * (resources/assets/create_refined/lang/en_us.json)
    *
    * @return The translatable name component for this block
    */
   @Override
   public Component getName() {
     return Component.translatable("block." + CreateRefined.MODID + "."
-        + NetworkInterfaceBlock.BLOCK_NAME);
+        + ExternalStorageInterfaceBlock.BLOCK_NAME);
   }
 
 }

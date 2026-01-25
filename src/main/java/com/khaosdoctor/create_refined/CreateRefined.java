@@ -49,22 +49,23 @@ public class CreateRefined {
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "create_refined" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    // Creates a new Block with the id "create_refined:network_interface", combining
+    // Creates a new Block with the id "create_refined:external_storage_interface", combining
     // the namespace and path
-    public static final DeferredBlock<Block> NETWORK_INTERFACE = BLOCKS.registerBlock(NetworkInterfaceBlock.BLOCK_NAME,
-                    properties -> new NetworkInterfaceBlock());
+    public static final DeferredBlock<Block> NETWORK_INTERFACE = BLOCKS.registerBlock(
+            ExternalStorageInterfaceBlock.BLOCK_NAME,
+            properties -> new ExternalStorageInterfaceBlock());
 
-    // Creates a new BlockItem with the id "create_refined:network_interface",
+    // Creates a new BlockItem with the id "create_refined:external_storage_interface",
     // combining the namespace and path
     public static final DeferredItem<BlockItem> NETWORK_INTERFACE_ITEM = ITEMS
-                    .registerSimpleBlockItem(NetworkInterfaceBlock.BLOCK_NAME, NETWORK_INTERFACE);
+            .registerSimpleBlockItem(ExternalStorageInterfaceBlock.BLOCK_NAME, NETWORK_INTERFACE);
 
-    // Creates the block entity type for the Network Interface Block Entity
+    // Creates the block entity type for the External Storage Interface Block Entity
     @SuppressWarnings("null")
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<NetworkInterfaceBlockEntity>> NETWORK_INTERFACE_BLOCK_ENTITY = BLOCK_ENTITIES
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ExternalStorageInterfaceBlockEntity>> NETWORK_INTERFACE_BLOCK_ENTITY = BLOCK_ENTITIES
             .register(NETWORK_INTERFACE.getId().getPath(),
                     () -> BlockEntityType.Builder
-                            .of(NetworkInterfaceBlockEntity::new,
+                            .of(ExternalStorageInterfaceBlockEntity::new,
                                     NETWORK_INTERFACE.get())
                             .build(null));
 
@@ -117,20 +118,20 @@ public class CreateRefined {
         if (event.includeServer()) {
             generator.addProvider(
                             true,
-                            new NetworkInterfaceLootTableProvider(output, lookupProvider));
-            generator.addProvider(true, new NetworkInterfaceRecipeProvider(output, lookupProvider));
+                    new ExternalStorageInterfaceLootTableProvider(output, lookupProvider));
+            generator.addProvider(true, new ExternalStorageInterfaceRecipeProvider(output, lookupProvider));
         }
 
         if (event.includeClient()) {
             generator.addProvider(
                             true,
-                            new NetworkInterfaceBlockModelProvider(output, existingFileHelper));
+                    new ExternalStorageInterfaceBlockModelProvider(output, existingFileHelper));
             generator.addProvider(
                             true,
-                            new NetworkInterfaceItemModelProvider(output, existingFileHelper));
+                    new ExternalStorageInterfaceItemModelProvider(output, existingFileHelper));
             generator.addProvider(
                             true,
-                            new NetworkInterfaceBlockStateProvider(output, existingFileHelper));
+                    new ExternalStorageInterfaceBlockStateProvider(output, existingFileHelper));
         }
     }
 
@@ -165,7 +166,7 @@ public class CreateRefined {
         event.registerBlockEntity(
             // What capability are we providing? The RS network node container capability
             RefinedStorageNeoForgeApi.INSTANCE.getNetworkNodeContainerProviderCapability(),
-            // Which block entity type provides this capability? Our Network Interface block entity
+            // Which block entity type provides this capability? Our External Storage Interface block entity
             NETWORK_INTERFACE_BLOCK_ENTITY.get(),
             // How do we get the capability? Call getContainerProvider() on the block entity
             // (side) parameter is which side is being queried (north, south, etc.) - we ignore it

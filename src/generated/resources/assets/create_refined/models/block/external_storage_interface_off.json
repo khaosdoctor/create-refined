@@ -1,8 +1,8 @@
 {
   "parent": "refinedstorage:block/controller/light_blue",
   "textures": {
-    "all": "create:block/brass_casing",
+    "all": "minecraft:block/barrel_side",
     "cutout": "refinedstorage:block/controller/cutouts/off",
-    "particle": "create:block/brass_casing"
+    "particle": "minecraft:block/barrel_side"
   }
 }

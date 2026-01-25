@@ -20,24 +20,30 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 
 /**
- * The Network Interface block - bridges Create and Refined Storage.
+ * The External Storage Interface block - bridges Create and Refined Storage.
  *
- * This is the Block class - it defines the physical properties and behavior of the block itself.
- * The actual logic/data is in NetworkInterfaceBlockEntity (the "brain" of the block).
+ * This is the Block class - it defines the physical properties and behavior of
+ * the block itself.
+ * The actual logic/data is in ExternalStorageInterfaceBlockEntity (the "brain" of the
+ * block).
  *
  * Implements two interfaces:
  * - IWrenchable: Makes it work with Create's wrench tool
  * - EntityBlock: Tells Minecraft this block has a BlockEntity attached
  *
  * Block Properties (stored in the blockstate):
- * - FACING: Which direction the block is facing (6 directions: up, down, north, south, east, west)
- * - POWERED: Whether the block is part of an active RS network (true = on, false = off)
+ * - FACING: Which direction the block is facing (6 directions: up, down, north,
+ * south, east, west)
+ * - POWERED: Whether the block is part of an active RS network (true = on,
+ * false = off)
  */
-public class NetworkInterfaceBlock extends Block implements IWrenchable, EntityBlock {
-  // The registry name for this block (used in game files, must match your block JSON files)
-  public static final String BLOCK_NAME = "network_interface";
+public class ExternalStorageInterfaceBlock extends Block implements IWrenchable, EntityBlock {
+  // The registry name for this block (used in game files, must match your block
+  // JSON files)
+  public static final String BLOCK_NAME = "external_storage_interface";
 
-  // Block properties - these are stored in the "blockstate" and can change without replacing the block
+  // Block properties - these are stored in the "blockstate" and can change
+  // without replacing the block
   public static final DirectionProperty FACING = BlockStateProperties.FACING; // Which way the block faces
   public static final BooleanProperty POWERED = BlockStateProperties.POWERED; // Is it active in the network?
 
@@ -47,11 +53,13 @@ public class NetworkInterfaceBlock extends Block implements IWrenchable, EntityB
    * Block properties explained:
    * - destroyTime: How long it takes to break (we use dirt's time as reference)
    * - friction: How slippery it is (we use dirt's friction)
-   * - lightLevel: How much light it emits (1 = very dim, 15 = bright like glowstone)
-   * - isRedstoneConductor: Whether redstone signals can pass through (false = signals can't pass)
+   * - lightLevel: How much light it emits (1 = very dim, 15 = bright like
+   * glowstone)
+   * - isRedstoneConductor: Whether redstone signals can pass through (false =
+   * signals can't pass)
    * - mapColor: Color shown on maps (STONE = gray)
    */
-  public NetworkInterfaceBlock() {
+  public ExternalStorageInterfaceBlock() {
     super(Properties.of()
         .destroyTime(Blocks.DIRT.defaultDestroyTime()) // Same mining time as dirt
         .friction(Blocks.DIRT.getFriction()) // Same friction as dirt
@@ -59,7 +67,8 @@ public class NetworkInterfaceBlock extends Block implements IWrenchable, EntityB
         .isRedstoneConductor((state, level, pos) -> false) // Doesn't conduct redstone
         .mapColor(MapColor.STONE)); // Shows as gray on maps
 
-    // Register the default state - this is what the block looks like when first placed
+    // Register the default state - this is what the block looks like when first
+    // placed
     this.registerDefaultState(
         this.stateDefinition.any()
             .setValue(FACING, Direction.NORTH) // Default facing north
@@ -70,20 +79,22 @@ public class NetworkInterfaceBlock extends Block implements IWrenchable, EntityB
    * Creates the BlockEntity for this block.
    *
    * This is required by the EntityBlock interface. It tells Minecraft:
-   * "When you place this block, also create a NetworkInterfaceBlockEntity to go with it"
+   * "When you place this block, also create a NetworkInterfaceBlockEntity to go
+   * with it"
    *
-   * @param pos The position where the block is being placed
+   * @param pos   The position where the block is being placed
    * @param state The initial block state
    * @return A new NetworkInterfaceBlockEntity instance
    */
   @Override
   @Nullable
   public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-    return new NetworkInterfaceBlockEntity(pos, state);
+    return new ExternalStorageInterfaceBlockEntity(pos, state);
   }
 
   /**
-   * Provides the "ticker" - a function that runs every game tick (20 times per second).
+   * Provides the "ticker" - a function that runs every game tick (20 times per
+   * second).
    *
    * Minecraft runs in ticks:
    * - 1 second = 20 ticks
@@ -96,10 +107,11 @@ public class NetworkInterfaceBlock extends Block implements IWrenchable, EntityB
    * - The server then tells the client what changed
    * - This prevents logic from running twice and keeps things in sync
    *
-   * @param level The world the block is in
-   * @param state The current block state
+   * @param level           The world the block is in
+   * @param state           The current block state
    * @param blockEntityType The type of block entity (for validation)
-   * @return A ticker function that calls doWork() every tick, or null if no ticker needed
+   * @return A ticker function that calls doWork() every tick, or null if no
+   *         ticker needed
    */
   @Override
   @Nullable
@@ -116,7 +128,7 @@ public class NetworkInterfaceBlock extends Block implements IWrenchable, EntityB
     // (safety check to prevent crashes if something goes wrong)
     return blockEntityType == CreateRefined.NETWORK_INTERFACE_BLOCK_ENTITY.get() ? (lvl, pos, st, blockEntity) -> {
       // Cast to our specific BlockEntity type and call doWork()
-      if (blockEntity instanceof NetworkInterfaceBlockEntity entity) {
+      if (blockEntity instanceof ExternalStorageInterfaceBlockEntity entity) {
         entity.doWork(); // This runs 20 times per second!
       }
     } : null;
@@ -132,7 +144,8 @@ public class NetworkInterfaceBlock extends Block implements IWrenchable, EntityB
    *
    * Our properties:
    * - FACING: Which direction the block faces (rotates without breaking)
-   * - POWERED: Whether it's active in the RS network (changes when network status changes)
+   * - POWERED: Whether it's active in the RS network (changes when network status
+   * changes)
    *
    * These properties are saved to the world and synced to clients.
    *
@@ -179,7 +192,7 @@ public class NetworkInterfaceBlock extends Block implements IWrenchable, EntityB
    *
    * We rotate the FACING property to match the rotation.
    *
-   * @param state The current blockstate
+   * @param state    The current blockstate
    * @param rotation How much to rotate (90°, 180°, 270°)
    * @return The rotated blockstate
    */
@@ -196,7 +209,7 @@ public class NetworkInterfaceBlock extends Block implements IWrenchable, EntityB
    *
    * We convert the mirror operation to a rotation and apply it.
    *
-   * @param state The current blockstate
+   * @param state  The current blockstate
    * @param mirror The mirror direction (left-right or front-back)
    * @return The mirrored blockstate
    */
@@ -213,7 +226,8 @@ public class NetworkInterfaceBlock extends Block implements IWrenchable, EntityB
    * - Sneak + click: Picks up the block (preserves data)
    *
    * We return PASS which means:
-   * - Don't rotate on normal click (since we connect to RS network, rotating could break connections)
+   * - Don't rotate on normal click (since we connect to RS network, rotating
+   * could break connections)
    * - Still allow sneak + click to pick up (handled by Create automatically)
    *
    * InteractionResult options:
@@ -221,15 +235,17 @@ public class NetworkInterfaceBlock extends Block implements IWrenchable, EntityB
    * - PASS: We didn't handle it, let others try
    * - FAIL: We tried and failed, stop processing
    *
-   * @param state The current blockstate
+   * @param state   The current blockstate
    * @param context Information about the interaction (player, position, etc.)
-   * @return PASS to allow default wrench behavior (sneak to pick up) but prevent rotation
+   * @return PASS to allow default wrench behavior (sneak to pick up) but prevent
+   *         rotation
    */
   @Override
   public InteractionResult onWrenched(BlockState state, UseOnContext context) {
     // Return PASS to:
     // - Prevent normal rotation (since this could mess up RS network connections)
-    // - Allow sneak + click pickup (Create handles this automatically when we return PASS)
+    // - Allow sneak + click pickup (Create handles this automatically when we
+    // return PASS)
     return InteractionResult.PASS;
   }
 }

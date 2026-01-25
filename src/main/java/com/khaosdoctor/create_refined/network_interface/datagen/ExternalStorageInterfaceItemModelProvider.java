@@ -6,8 +6,8 @@ import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-public class NetworkInterfaceItemModelProvider extends ItemModelProvider {
-  public NetworkInterfaceItemModelProvider(PackOutput output,
+public class ExternalStorageInterfaceItemModelProvider extends ItemModelProvider {
+  public ExternalStorageInterfaceItemModelProvider(PackOutput output,
       ExistingFileHelper existingFileHelper) {
     super(output, CreateRefined.MODID, existingFileHelper);
   }

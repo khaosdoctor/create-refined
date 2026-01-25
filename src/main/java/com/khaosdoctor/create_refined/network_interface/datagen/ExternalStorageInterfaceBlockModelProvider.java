@@ -8,9 +8,9 @@ import net.neoforged.neoforge.client.model.generators.BlockModelProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-public class NetworkInterfaceBlockModelProvider extends BlockModelProvider {
+public class ExternalStorageInterfaceBlockModelProvider extends BlockModelProvider {
 
-  public NetworkInterfaceBlockModelProvider(
+  public ExternalStorageInterfaceBlockModelProvider(
       PackOutput output,
       ExistingFileHelper existingFileHelper) {
     super(output, CreateRefined.MODID, existingFileHelper);
@@ -22,19 +22,19 @@ public class NetworkInterfaceBlockModelProvider extends BlockModelProvider {
     getBuilder(String.format("%s_off", blockName)).parent(new ModelFile.UncheckedModelFile(
         ResourceLocation.fromNamespaceAndPath("refinedstorage", "block/controller/light_blue")))
         .texture("all",
-            ResourceLocation.fromNamespaceAndPath("create", "block/brass_casing"))
+                    ResourceLocation.fromNamespaceAndPath("minecraft", "block/barrel_side"))
         .texture("cutout",
             ResourceLocation.fromNamespaceAndPath("refinedstorage", "block/controller/cutouts/off"))
         .texture("particle",
-            ResourceLocation.fromNamespaceAndPath("create", "block/brass_casing"));
+                    ResourceLocation.fromNamespaceAndPath("minecraft", "block/barrel_side"));
 
     getBuilder(String.format("%s_on", blockName)).parent(new ModelFile.UncheckedModelFile(
         ResourceLocation.fromNamespaceAndPath("refinedstorage", "block/controller/light_blue")))
         .texture("all",
-            ResourceLocation.fromNamespaceAndPath("create", "block/brass_casing"))
+                    ResourceLocation.fromNamespaceAndPath("minecraft", "block/barrel_side"))
         .texture("cutout",
             ResourceLocation.fromNamespaceAndPath("refinedstorage", "block/controller/cutouts/orange"))
         .texture("particle",
-            ResourceLocation.fromNamespaceAndPath("create", "block/brass_casing"));
+                    ResourceLocation.fromNamespaceAndPath("minecraft", "block/barrel_side"));
   }
 }

@@ -9,7 +9,7 @@
 
 ## About
 
-**Create: Refined** seamlessly integrates Create's mechanical automation with Refined Storage's network-based item storage. This mod adds the **Network Interface** block, which exposes your entire Refined Storage network as a standard inventory that Create (and other mods) can interact with directly.
+**Create: Refined** seamlessly integrates Create's mechanical automation with Refined Storage's network-based item storage. This mod adds the **External Storage Interface** block, which exposes your entire Refined Storage network as a standard inventory that Create (and other mods) can interact with directly.
 
 > This mod was built with a HEAVY help from AI since I have never coded Java before, and I also had never worked with Minecraft modding APIs. So, even though I have written all the code myself (not automated) and tried to fix and test most of the things to make sure they work, if you find any issues, please open an issue or a PR to help me improve it! (and please teach me Java and Minecraft modding too :))
 
@@ -17,7 +17,7 @@
 
 ### For Developers
 
-The Network Interface implements `IItemHandler` (NeoForge's standard inventory interface):
+The External Storage Interface implements `IItemHandler` (NeoForge's standard inventory interface):
 
 ```java
 // Dynamic slot count based on network contents
@@ -73,10 +73,10 @@ cd create-refined
 ```
 create_refined/
 ├── network_interface/           # Main feature package
-│   ├── NetworkInterfaceBlock.java
-│   ├── NetworkInterfaceBlockEntity.java
+│   ├── ExternalStorageInterfaceBlock.java
+│   ├── ExternalStorageInterfaceBlockEntity.java
 │   ├── rs_integration/
-│   │   ├── NetworkInterfaceNetworkNode.java
+│   │   ├── ExternalStorageInterfaceNetworkNode.java
 │   │   └── NetworkItemHandler.java  # IItemHandler adapter
 │   └── datagen/                     # Data generators
 └── Config.java                      # Mod configuration

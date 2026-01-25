@@ -9,12 +9,12 @@ import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
 
-public class NetworkInterfaceLootSubProvider extends BlockLootSubProvider {
+public class ExternalStorageInterfaceLootSubProvider extends BlockLootSubProvider {
   // The constructor can be private if this class is an inner class of your loot
   // table provider.
   // The parameter is provided by the lambda in the LootTableProvider's
   // constructor.
-  public NetworkInterfaceLootSubProvider(HolderLookup.Provider lookupProvider) {
+  public ExternalStorageInterfaceLootSubProvider(HolderLookup.Provider lookupProvider) {
     // The first parameter is a set of blocks we are creating loot tables for.
     // Instead of hardcoding,
     // we use our block registry and just pass an empty set here.

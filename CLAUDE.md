@@ -4,11 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-NeoForge 1.21.1 mod that bridges Create and Refined Storage. The mod provides a **Network Interface** block that exposes Refined Storage networks as standard inventories (`IItemHandler`), allowing Create's mechanical automation (and other mods) to interact with RS storage directly.
+NeoForge 1.21.1 mod that bridges Create and Refined Storage. The mod provides an **External Storage Interface** block that exposes Refined Storage networks as standard inventories (`IItemHandler`), allowing Create's mechanical automation (and other mods) to interact with RS storage directly.
 
 ### Core Concept
 
-The Network Interface implements the **Adapter Pattern** to translate between two different APIs:
+The External Storage Interface implements the **Adapter Pattern** to translate between two different APIs:
 - **IItemHandler** (NeoForge's standard inventory interface used by Create, hoppers, pipes, etc.)
 - **StorageNetworkComponent** (Refined Storage's network storage API)
 
@@ -65,24 +65,24 @@ com.khaosdoctor.create_refined/
 
 **Key pattern**: Each feature gets its own package with dedicated data generation providers. All registration happens in the main `CreateRefined` class via `DeferredRegister`.
 
-### Network Interface Implementation
+### External Storage Interface Implementation
 
 The `network_interface/` package demonstrates integration with both Create and Refined Storage:
 
 ```
 network_interface/
-├── NetworkInterfaceBlock.java           # Block with FACING and POWERED properties
-├── NetworkInterfaceBlockEntity.java     # Extends AbstractBaseNetworkNodeContainerBlockEntity<T>
+├── ExternalStorageInterfaceBlock.java           # Block with FACING and POWERED properties
+├── ExternalStorageInterfaceBlockEntity.java     # Extends AbstractBaseNetworkNodeContainerBlockEntity<T>
 ├── rs_integration/
-│   ├── NetworkInterfaceNetworkNode.java # RS network node (extends SimpleNetworkNode)
-│   └── NetworkItemHandler.java          # IItemHandler adapter (Adapter Pattern)
-└── datagen/                             # Standard data generators
+│   ├── ExternalStorageInterfaceNetworkNode.java # RS network node (extends SimpleNetworkNode)
+│   └── NetworkItemHandler.java                  # IItemHandler adapter (Adapter Pattern)
+└── datagen/                                     # Standard data generators
 ```
 
 #### Key Implementation Details
 
-**NetworkInterfaceBlockEntity:**
-- Extends `AbstractBaseNetworkNodeContainerBlockEntity<NetworkInterfaceNetworkNode>` from RS
+**ExternalStorageInterfaceBlockEntity:**
+- Extends `AbstractBaseNetworkNodeContainerBlockEntity<ExternalStorageInterfaceNetworkNode>` from RS
 - This provides automatic RS network integration (joining/leaving networks, energy management)
 - Contains a lazy-initialized `NetworkItemHandler` instance
 - Exposes handler via `getItemHandler()` method for capability system
@@ -90,7 +90,7 @@ network_interface/
 
 **NetworkItemHandler (The Adapter):**
 - Implements `IItemHandler` interface
-- Wraps a `NetworkInterfaceNetworkNode` reference
+- Wraps an `ExternalStorageInterfaceNetworkNode` reference
 - **Dynamic slot count**: Returns `(item types in network) + 1` from `getSlots()`
   - The +1 ensures there's always an empty slot for inserting new item types
   - Without this, Create would refuse to insert items not already in the network
@@ -130,7 +130,7 @@ private int calculateSlots() {
 
 ### Capability Registration
 
-Capabilities are NeoForge's way of exposing functionality between mods. The Network Interface registers **two capabilities**:
+Capabilities are NeoForge's way of exposing functionality between mods. The External Storage Interface registers **two capabilities**:
 
 **1. RS Network Node Container Provider** (so RS cables can connect):
 ```java
@@ -164,8 +164,8 @@ Each feature should have its own set of data providers in a `datagen/` subpackag
 
 ### Naming
 
-- Block/item IDs: `lowercase_with_underscores` (e.g., `network_interface`)
-- Java classes: `PascalCase` (e.g., `NetworkInterfaceBlock`)
+- Block/item IDs: `lowercase_with_underscores` (e.g., `external_storage_interface`)
+- Java classes: `PascalCase` (e.g., `ExternalStorageInterfaceBlock`)
 - Translation keys follow pattern: `block.create_refined.<block_name>`
 
 ### Client/Server Separation
@@ -199,7 +199,7 @@ public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
 **RS Network Node Lifecycle:**
 1. BlockEntity extends `AbstractBaseNetworkNodeContainerBlockEntity<T>`
-2. Constructor creates a new `NetworkInterfaceNetworkNode` (extends `SimpleNetworkNode`)
+2. Constructor creates a new `ExternalStorageInterfaceNetworkNode` (extends `SimpleNetworkNode`)
 3. `clearRemoved()` is called → node joins the RS network automatically
 4. `setRemoved()` is called → node leaves the RS network automatically
 5. `doWork()` ticks every game tick → calls `updateActiveness()` to check network status

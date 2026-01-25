@@ -1,7 +1,7 @@
 package com.khaosdoctor.create_refined.network_interface.datagen;
 
 import com.khaosdoctor.create_refined.CreateRefined;
-import com.khaosdoctor.create_refined.network_interface.NetworkInterfaceBlock;
+import com.khaosdoctor.create_refined.network_interface.ExternalStorageInterfaceBlock;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.core.Direction;
@@ -10,9 +10,9 @@ import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-public class NetworkInterfaceBlockStateProvider extends BlockStateProvider {
+public class ExternalStorageInterfaceBlockStateProvider extends BlockStateProvider {
 
-  public NetworkInterfaceBlockStateProvider(
+  public ExternalStorageInterfaceBlockStateProvider(
       PackOutput output,
       ExistingFileHelper existingFileHelper) {
     super(output, CreateRefined.MODID, existingFileHelper);
@@ -31,8 +31,8 @@ public class NetworkInterfaceBlockStateProvider extends BlockStateProvider {
 
     getVariantBuilder(block)
         .forAllStates(state -> {
-          boolean powered = state.getValue(NetworkInterfaceBlock.POWERED);
-          Direction facing = state.getValue(NetworkInterfaceBlock.FACING);
+          boolean powered = state.getValue(ExternalStorageInterfaceBlock.POWERED);
+          Direction facing = state.getValue(ExternalStorageInterfaceBlock.FACING);
 
           return ConfiguredModel.builder()
               .modelFile(powered ? onModelFile : offModelFile)

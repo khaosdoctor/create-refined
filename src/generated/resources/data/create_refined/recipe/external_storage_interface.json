@@ -28,6 +28,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "create_refined:network_interface"
+    "id": "create_refined:external_storage_interface"
   }
 }

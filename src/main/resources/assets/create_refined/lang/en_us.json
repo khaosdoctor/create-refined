@@ -1,8 +1,8 @@
 {
   "itemGroup.create_refined": "Create: Refined",
-  "block.create_refined.network_interface": "Network Interface",
-  "item.create_refined.network_interface": "Network Interface",
+  "block.create_refined.external_storage_interface": "External Storage Interface",
+  "item.create_refined.external_storage_interface": "External Storage Interface",
 
-  "create_refined.configuration.networkInterfaceEnergy": "Network Interface Energy",
-  "create_refined.configuration.networkInterfaceEnergy.tooltip": "Energy consumption (FE/t) for the Network Interface block. This block bridges Create and Refined Storage systems. Comparison: Cable=0, Importer=1, Detector=2, Constructor=3, Pattern Grid=5. Default: 2 (monitoring level)."
+  "create_refined.configuration.externalStorageInterfaceEnergy": "External Storage Interface Energy",
+  "create_refined.configuration.externalStorageInterfaceEnergy.tooltip": "Energy consumption (FE/t) for the External Storage Interface block. This block bridges Create and Refined Storage systems. Comparison: Cable=0, Importer=1, Detector=2, Constructor=3, Pattern Grid=5. Default: 2 (monitoring level)."
 }

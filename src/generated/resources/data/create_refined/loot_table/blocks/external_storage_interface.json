@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "create_refined:network_interface"
+          "name": "create_refined:external_storage_interface"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "create_refined:blocks/network_interface"
+  "random_sequence": "create_refined:blocks/external_storage_interface"
 }

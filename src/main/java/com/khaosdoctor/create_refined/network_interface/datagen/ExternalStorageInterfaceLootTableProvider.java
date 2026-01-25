@@ -9,10 +9,11 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
-public class NetworkInterfaceLootTableProvider extends LootTableProvider {
-  public NetworkInterfaceLootTableProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+public class ExternalStorageInterfaceLootTableProvider extends LootTableProvider {
+  public ExternalStorageInterfaceLootTableProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
     super(output, Set.of(),
-        List.of(new SubProviderEntry(NetworkInterfaceLootSubProvider::new, LootContextParamSets.BLOCK)), registries);
+        List.of(new SubProviderEntry(ExternalStorageInterfaceLootSubProvider::new, LootContextParamSets.BLOCK)),
+        registries);
   }
 
 }

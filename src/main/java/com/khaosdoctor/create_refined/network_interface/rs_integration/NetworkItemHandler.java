@@ -17,14 +17,14 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.IItemHandler;
 
 public class NetworkItemHandler implements IItemHandler {
-  private final NetworkInterfaceNetworkNode node;
+  private final ExternalStorageInterfaceNetworkNode node;
   private static final Actor ACTOR = () -> CreateRefined.NETWORK_INTERFACE.getId().toString();
 
   // Used for caching slot count to improve performance
   private int cachedSlotCount = 0;
   private long lastCacheTime = 0;
 
-  public NetworkItemHandler(NetworkInterfaceNetworkNode node) {
+  public NetworkItemHandler(ExternalStorageInterfaceNetworkNode node) {
     this.node = node;
   }
 

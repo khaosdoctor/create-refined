@@ -16,9 +16,9 @@ import com.refinedmods.refinedstorage.common.misc.ProcessorItem.Type;
 import com.refinedmods.refinedstorage.common.content.Blocks;
 import com.refinedmods.refinedstorage.common.content.Items;
 
-public class NetworkInterfaceRecipeProvider extends RecipeProvider {
+public class ExternalStorageInterfaceRecipeProvider extends RecipeProvider {
 
-  public NetworkInterfaceRecipeProvider(PackOutput output, CompletableFuture<Provider> registries) {
+  public ExternalStorageInterfaceRecipeProvider(PackOutput output, CompletableFuture<Provider> registries) {
     super(output, registries);
   }
 
