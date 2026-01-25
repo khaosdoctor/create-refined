@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:barrel"
+    },
+    "I": {
+      "item": "refinedstorage:interface"
+    },
+    "M": {
+      "tag": "refinedstorage:importers"
+    },
+    "P": {
+      "item": "refinedstorage:improved_processor"
+    },
+    "Q": {
+      "item": "refinedstorage:quartz_enriched_iron"
+    },
+    "X": {
+      "tag": "refinedstorage:exporters"
+    }
+  },
+  "pattern": [
+    "QIQ",
+    "MBX",
+    "QPQ"
+  ],
+  "result": {
+    "count": 1,
+    "id": "refined_integrations:external_storage_interface"
+  }
+}

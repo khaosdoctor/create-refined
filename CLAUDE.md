@@ -28,18 +28,18 @@ This allows Create contraptions to insert/extract items from RS networks as if t
 
 ### Entry Points
 
-- **Main mod class**: [src/main/java/com/khaosdoctor/create_refined/CreateRefined.java](src/main/java/com/khaosdoctor/create_refined/CreateRefined.java)
+- **Main mod class**: [src/main/java/com/khaosdoctor/refined_integrations/RefinedIntegrations.java](src/main/java/com/khaosdoctor/refined_integrations/RefinedIntegrations.java)
   - Annotated with `@Mod(MODID)`
   - Contains `DeferredRegister` instances for blocks, items, and creative tabs
   - Registers data generation providers via `onGatherData()`
   - Subscribes to `FMLCommonSetupEvent` and game events via `NeoForge.EVENT_BUS`
 
-- **Client-only code**: [src/main/java/com/khaosdoctor/create_refined/CreateRefinedClient.java](src/main/java/com/khaosdoctor/create_refined/CreateRefinedClient.java)
+- **Client-only code**: [src/main/java/com/khaosdoctor/refined_integrations/RefinedIntegrationsClient.java](src/main/java/com/khaosdoctor/refined_integrations/RefinedIntegrationsClient.java)
   - Annotated with `@Mod(dist=CLIENT)` to prevent loading on dedicated servers
   - Handles client setup and config screen registration
   - Uses `@EventBusSubscriber(Dist.CLIENT)` for client events
 
-- **Configuration**: [src/main/java/com/khaosdoctor/create_refined/Config.java](src/main/java/com/khaosdoctor/create_refined/Config.java)
+- **Configuration**: [src/main/java/com/khaosdoctor/refined_integrations/Config.java](src/main/java/com/khaosdoctor/refined_integrations/Config.java)
   - `ModConfigSpec` with validation (e.g., `validateItemName` uses `BuiltInRegistries`)
   - Registered once in main constructor: `modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC)`
 
@@ -48,9 +48,9 @@ This allows Create contraptions to insert/extract items from RS networks as if t
 Features are organized in dedicated packages under the main package (e.g., `network_interface/`):
 
 ```
-com.khaosdoctor.create_refined/
-├── CreateRefined.java          # Main mod class with DeferredRegister instances
-├── CreateRefinedClient.java    # Client-only entry point
+com.khaosdoctor.refined_integrations/
+├── RefinedIntegrations.java          # Main mod class with DeferredRegister instances
+├── RefinedIntegrationsClient.java    # Client-only entry point
 ├── Config.java                 # Mod configuration
 └── <feature_name>/             # Feature package (e.g., network_interface)
     ├── <Feature>Block.java     # Block implementation
@@ -63,7 +63,7 @@ com.khaosdoctor.create_refined/
         └── <Feature>LootSubProvider.java
 ```
 
-**Key pattern**: Each feature gets its own package with dedicated data generation providers. All registration happens in the main `CreateRefined` class via `DeferredRegister`.
+**Key pattern**: Each feature gets its own package with dedicated data generation providers. All registration happens in the main `RefinedIntegrations` class via `DeferredRegister`.
 
 ### External Storage Interface Implementation
 
@@ -122,10 +122,10 @@ private int calculateSlots() {
 
 ### Registration Flow
 
-1. Declare `DeferredBlock`/`DeferredItem` as static finals in `CreateRefined`
+1. Declare `DeferredBlock`/`DeferredItem` as static finals in `RefinedIntegrations`
 2. Register them in the constructor: `BLOCKS.register(modEventBus)`
 3. Reference in creative tabs via suppliers: `() -> ITEM.get().getDefaultInstance()`
-4. Add translations to `assets/create_refined/lang/en_us.json`
+4. Add translations to `assets/refined_integrations/lang/en_us.json`
 5. Generate assets via `./gradlew runData`
 
 ### Capability Registration
@@ -150,11 +150,11 @@ event.registerBlockEntity(
 );
 ```
 
-**CRITICAL**: Both registrations happen in `CreateRefined.onRegisterCapabilities()`. Without these, the block won't function - RS cables won't connect AND Create won't see the inventory.
+**CRITICAL**: Both registrations happen in `RefinedIntegrations.onRegisterCapabilities()`. Without these, the block won't function - RS cables won't connect AND Create won't see the inventory.
 
 ### Data Generation
 
-Data providers are registered in `CreateRefined.onGatherData()`:
+Data providers are registered in `RefinedIntegrations.onGatherData()`:
 - Server-side: Loot tables
 - Client-side: Block states, block models, item models
 
@@ -166,12 +166,12 @@ Each feature should have its own set of data providers in a `datagen/` subpackag
 
 - Block/item IDs: `lowercase_with_underscores` (e.g., `external_storage_interface`)
 - Java classes: `PascalCase` (e.g., `ExternalStorageInterfaceBlock`)
-- Translation keys follow pattern: `block.create_refined.<block_name>`
+- Translation keys follow pattern: `block.refined_integrations.<block_name>`
 
 ### Client/Server Separation
 
 - **NEVER** call client-only classes from common code
-- Client code goes in `CreateRefinedClient` or is annotated with `@EventBusSubscriber(Dist.CLIENT)`
+- Client code goes in `RefinedIntegrationsClient` or is annotated with `@EventBusSubscriber(Dist.CLIENT)`
 - Use `level.isClientSide()` checks when needed in common code
 
 ### Event Handling
@@ -222,7 +222,7 @@ long extracted = storage.extract(resource, amount, Action.EXECUTE, ACTOR);
 **Actor Interface:**
 The `Actor` identifies who is performing storage operations (for logging/filtering):
 ```java
-private static final Actor ACTOR = () -> CreateRefined.NETWORK_INTERFACE.getId().toString();
+private static final Actor ACTOR = () -> RefinedIntegrations.NETWORK_INTERFACE.getId().toString();
 ```
 
 **RS API Key Classes:**

@@ -1,0 +1,56 @@
+{
+  "variants": {
+    "facing=down,powered=false": {
+      "model": "refined_integrations:block/external_storage_interface_off",
+      "x": 180
+    },
+    "facing=down,powered=true": {
+      "model": "refined_integrations:block/external_storage_interface_on",
+      "x": 180
+    },
+    "facing=east,powered=false": {
+      "model": "refined_integrations:block/external_storage_interface_off",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,powered=true": {
+      "model": "refined_integrations:block/external_storage_interface_on",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north,powered=false": {
+      "model": "refined_integrations:block/external_storage_interface_off",
+      "x": 90
+    },
+    "facing=north,powered=true": {
+      "model": "refined_integrations:block/external_storage_interface_on",
+      "x": 90
+    },
+    "facing=south,powered=false": {
+      "model": "refined_integrations:block/external_storage_interface_off",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,powered=true": {
+      "model": "refined_integrations:block/external_storage_interface_on",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up,powered=false": {
+      "model": "refined_integrations:block/external_storage_interface_off"
+    },
+    "facing=up,powered=true": {
+      "model": "refined_integrations:block/external_storage_interface_on"
+    },
+    "facing=west,powered=false": {
+      "model": "refined_integrations:block/external_storage_interface_off",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,powered=true": {
+      "model": "refined_integrations:block/external_storage_interface_on",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

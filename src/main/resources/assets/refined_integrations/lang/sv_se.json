@@ -1,0 +1,8 @@
+{
+  "itemGroup.refined_integrations": "Refined Integrations",
+  "block.refined_integrations.external_storage_interface": "Extern Lagringsgränssnitt",
+  "item.refined_integrations.external_storage_interface": "Extern Lagringsgränssnitt",
+
+  "refined_integrations.configuration.externalStorageInterfaceEnergy": "Extern Lagringsgränssnitt Energi",
+  "refined_integrations.configuration.externalStorageInterfaceEnergy.tooltip": "Energiförbrukning (FE/t) för Extern Lagringsgränssnitt-blocket. Detta block förbinder Create och Refined Storage systemen. Jämförelse: Kabel=0, Importör=1, Detektor=2, Konstruktör=3, Mönsterrutnät=5. Standard: 2 (övervakningsnivå)."
+}

@@ -1,0 +1,8 @@
+{
+  "itemGroup.refined_integrations": "Refined Integrations",
+  "block.refined_integrations.external_storage_interface": "Interfejs Zewnętrznego Magazynu",
+  "item.refined_integrations.external_storage_interface": "Interfejs Zewnętrznego Magazynu",
+
+  "refined_integrations.configuration.externalStorageInterfaceEnergy": "Energia Interfejsu Zewnętrznego Magazynu",
+  "refined_integrations.configuration.externalStorageInterfaceEnergy.tooltip": "Zużycie energii (FE/t) dla bloku Interfejs Zewnętrznego Magazynu. Ten blok łączy systemy Create i Refined Storage. Porównanie: Kabel=0, Importer=1, Detektor=2, Konstruktor=3, Siatka Wzorów=5. Domyślnie: 2 (poziom monitorowania)."
+}

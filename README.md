@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Create: Refined</h1>
+  <h1>Refined Integrations</h1>
   <p>A bridge between <a href="https://github.com/Creators-of-Create/Create">Create</a> and <a href="https://github.com/refinedmods/refinedstorage2">Refined Storage 2</a></p>
 
   [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](LICENSE)
@@ -9,7 +9,7 @@
 
 ## About
 
-**Create: Refined** seamlessly integrates Create's mechanical automation with Refined Storage's network-based item storage. This mod adds the **External Storage Interface** block, which exposes your entire Refined Storage network as a standard inventory that Create (and other mods) can interact with directly.
+**Refined Integrations** seamlessly integrates Create's mechanical automation with Refined Storage's network-based item storage. This mod adds the **External Storage Interface** block, which exposes your entire Refined Storage network as a standard inventory that Create (and other mods) can interact with directly.
 
 > This mod was built with a HEAVY help from AI since I have never coded Java before, and I also had never worked with Minecraft modding APIs. So, even though I have written all the code myself (not automated) and tried to fix and test most of the things to make sure they work, if you find any issues, please open an issue or a PR to help me improve it! (and please teach me Java and Minecraft modding too :))
 
@@ -71,7 +71,7 @@ cd create-refined
 ## Project Structure
 
 ```
-create_refined/
+refined_integrations/
 ├── network_interface/           # Main feature package
 │   ├── ExternalStorageInterfaceBlock.java
 │   ├── ExternalStorageInterfaceBlockEntity.java

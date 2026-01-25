@@ -1,0 +1,8 @@
+{
+  "itemGroup.refined_integrations": "Refined Integrations",
+  "block.refined_integrations.external_storage_interface": "Интерфейс внешнего хранилища",
+  "item.refined_integrations.external_storage_interface": "Интерфейс внешнего хранилища",
+
+  "refined_integrations.configuration.externalStorageInterfaceEnergy": "Энергия интерфейса внешнего хранилища",
+  "refined_integrations.configuration.externalStorageInterfaceEnergy.tooltip": "Потребление энергии (FE/t) для блока Интерфейс внешнего хранилища. Этот блок соединяет системы Create и Refined Storage. Сравнение: Кабель=0, Импортёр=1, Детектор=2, Конструктор=3, Сетка шаблонов=5. По умолчанию: 2 (уровень мониторинга)."
+}

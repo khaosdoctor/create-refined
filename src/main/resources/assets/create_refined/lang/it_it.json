@@ -1,8 +1,0 @@
-{
-  "itemGroup.create_refined": "Create: Refined",
-  "block.create_refined.external_storage_interface": "Interfaccia di Archiviazione Esterna",
-  "item.create_refined.external_storage_interface": "Interfaccia di Archiviazione Esterna",
-
-  "create_refined.configuration.externalStorageInterfaceEnergy": "Energia Interfaccia di Archiviazione Esterna",
-  "create_refined.configuration.externalStorageInterfaceEnergy.tooltip": "Consumo energetico (FE/t) per il blocco Interfaccia di Archiviazione Esterna. Questo blocco collega i sistemi Create e Refined Storage. Confronto: Cavo=0, Importatore=1, Rilevatore=2, Costruttore=3, Griglia Pattern=5. Predefinito: 2 (livello di monitoraggio)."
-}

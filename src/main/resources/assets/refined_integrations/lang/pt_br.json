@@ -1,0 +1,8 @@
+{
+  "itemGroup.refined_integrations": "Refined Integrations",
+  "block.refined_integrations.external_storage_interface": "Interface de Armazenamento Externo",
+  "item.refined_integrations.external_storage_interface": "Interface de Armazenamento Externo",
+
+  "refined_integrations.configuration.externalStorageInterfaceEnergy": "Energia da Interface de Armazenamento Externo",
+  "refined_integrations.configuration.externalStorageInterfaceEnergy.tooltip": "Consumo de energia (FE/t) para o bloco Interface de Armazenamento Externo. Este bloco conecta os sistemas Create e Refined Storage. Comparação: Cabo=0, Importador=1, Detector=2, Construtor=3, Grade de Padrões=5. Padrão: 2 (nível de monitoramento)."
+}

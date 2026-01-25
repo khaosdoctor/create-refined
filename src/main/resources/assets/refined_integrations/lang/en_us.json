@@ -1,0 +1,8 @@
+{
+  "itemGroup.refined_integrations": "Refined Integrations",
+  "block.refined_integrations.external_storage_interface": "External Storage Interface",
+  "item.refined_integrations.external_storage_interface": "External Storage Interface",
+
+  "refined_integrations.configuration.externalStorageInterfaceEnergy": "External Storage Interface Energy",
+  "refined_integrations.configuration.externalStorageInterfaceEnergy.tooltip": "Energy consumption (FE/t) for the External Storage Interface block. This block bridges Create and Refined Storage systems. Comparison: Cable=0, Importer=1, Detector=2, Constructor=3, Pattern Grid=5. Default: 2 (monitoring level)."
+}
