@@ -140,6 +140,7 @@ public class NetworkInterfaceBlockEntity
    *
    * @param newActive true if we just became active, false if we became inactive
    */
+  @SuppressWarnings("null")
   @Override
   protected void activenessChanged(boolean newActive) {
     // Always call parent first - important for RS to track state properly

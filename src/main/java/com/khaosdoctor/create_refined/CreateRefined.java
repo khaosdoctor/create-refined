@@ -118,6 +118,7 @@ public class CreateRefined {
             generator.addProvider(
                             true,
                             new NetworkInterfaceLootTableProvider(output, lookupProvider));
+            generator.addProvider(true, new NetworkInterfaceRecipeProvider(output, lookupProvider));
         }
 
         if (event.includeClient()) {
