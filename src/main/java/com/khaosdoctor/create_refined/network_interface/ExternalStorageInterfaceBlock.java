@@ -3,13 +3,10 @@ package com.khaosdoctor.create_refined.network_interface;
 import javax.annotation.Nullable;
 
 import com.khaosdoctor.create_refined.CreateRefined;
-import com.simibubi.create.content.equipment.wrench.IWrenchable;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -37,7 +34,7 @@ import net.minecraft.world.level.material.*;
  * - POWERED: Whether the block is part of an active RS network (true = on,
  * false = off)
  */
-public class ExternalStorageInterfaceBlock extends Block implements IWrenchable, EntityBlock {
+public class ExternalStorageInterfaceBlock extends Block implements EntityBlock {
   // The registry name for this block (used in game files, must match your block
   // JSON files)
   public static final String BLOCK_NAME = "external_storage_interface";
@@ -216,36 +213,5 @@ public class ExternalStorageInterfaceBlock extends Block implements IWrenchable,
   @Override
   public BlockState mirror(BlockState state, Mirror mirror) {
     return this.rotate(state, mirror.getRotation(state.getValue(FACING)));
-  }
-
-  /**
-   * Handles when a player uses Create's wrench on this block.
-   *
-   * Create wrench behavior:
-   * - Normal click: Usually rotates the block
-   * - Sneak + click: Picks up the block (preserves data)
-   *
-   * We return PASS which means:
-   * - Don't rotate on normal click (since we connect to RS network, rotating
-   * could break connections)
-   * - Still allow sneak + click to pick up (handled by Create automatically)
-   *
-   * InteractionResult options:
-   * - SUCCESS: We handled it, stop processing
-   * - PASS: We didn't handle it, let others try
-   * - FAIL: We tried and failed, stop processing
-   *
-   * @param state   The current blockstate
-   * @param context Information about the interaction (player, position, etc.)
-   * @return PASS to allow default wrench behavior (sneak to pick up) but prevent
-   *         rotation
-   */
-  @Override
-  public InteractionResult onWrenched(BlockState state, UseOnContext context) {
-    // Return PASS to:
-    // - Prevent normal rotation (since this could mess up RS network connections)
-    // - Allow sneak + click pickup (Create handles this automatically when we
-    // return PASS)
-    return InteractionResult.PASS;
   }
 }

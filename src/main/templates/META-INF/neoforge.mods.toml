@@ -46,7 +46,7 @@ authors="khaosdoctor"
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-This mod provides several blocks to integrate Create into Refined Storage
+This mod provides ways to expose Refined Storage to the world through several integrations
 '''
 
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.
@@ -85,14 +85,6 @@ This mod provides several blocks to integrate Create into Refined Storage
     type="required"
     # This version range declares a minimum of the current minecraft version up to but not including the next major version
     versionRange="${minecraft_version_range}"
-    ordering="NONE"
-    side="BOTH"
-
-# This mod requires Create and Refined Storage to be present
-[[dependencies.${mod_id}]]
-    modId="create"
-    type="required"
-    versionRange="[6.0.9,6.1.0)"
     ordering="NONE"
     side="BOTH"
 
